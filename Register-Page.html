@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>Register Page</title>
+    </head>
+
+    <body style="background-image:url(project-background1.avif);">
+
+        <table width="100%">
+
+            <tr>
+
+                <td align="left">
+                    <img src="logo-project.png" width="180" height="100">
+                </td>
+
+                <td align="right">
+
+                    <a href="file:///C:/Users/nikhi/Desktop/FDFW/PMS-project/PropertyManagementSystem.html">
+                        HOME
+                    </a>
+
+                    <a href="file:///C:/Users/nikhi/Desktop/FDFW/PMS-project/Properties-Page.html">
+                        PROPERTIES
+                    </a>
+
+                    <a href="file:///C:/Users/nikhi/Desktop/FDFW/PMS-project/Login-Page.html">
+                        LOGIN
+                    </a>
+
+                    <a href="file:///C:/Users/nikhi/Desktop/FDFW/PMS-project/Register-Page.html">
+                        REGISTER
+                    </a>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+        <hr>
+
+        <h2 style="color:black; text-align:center">
+            CREATE ACCOUNT
+        </h2>
+
+        <section align="center">
+
+            <form id="registerForm" style="font-size:22px;">
+
+                <label style="font-size:20px;">
+                    Name:
+                </label>
+
+                <br>
+
+                <input type="text"
+                       id="name"
+                       name="name"
+                       placeholder="Enter your name"
+                       style="width:350px; height:35px;">
+
+                <br><br>
+
+
+                <label style="font-size:20px;">
+                    Email:
+                </label>
+
+                <br>
+
+                <input type="email"
+                       id="email"
+                       name="email"
+                       placeholder="Enter your email"
+                       style="width:350px; height:35px;">
+
+                <br><br>
+
+
+                <label style="font-size:20px;">
+                    Phone Number:
+                </label>
+
+                <br>
+
+                <input type="tel"
+                       id="phone"
+                       name="phone"
+                       placeholder="Enter your phone number"
+                       style="width:350px; height:35px;">
+
+                <br><br>
+
+
+                <label style="font-size:20px;">
+                    Address:
+                </label>
+
+                <br>
+
+                <textarea id="address"
+                          name="address"
+                          rows="4"
+                          cols="35"
+                          placeholder="Enter your address"
+                          style="font-size:18px;">
+                </textarea>
+
+                <br><br>
+
+
+                <label style="font-size:20px;">
+                    Password:
+                </label>
+
+                <br>
+
+                <input type="password"
+                       id="password"
+                       name="password"
+                       placeholder="Create a password"
+                       style="width:350px; height:35px;">
+
+                <br><br>
+
+
+                <label style="font-size:20px;">
+                    I am a:
+                </label>
+
+                <br><br>
+
+                <input type="radio"
+                       name="role"
+                       value="tenant">
+
+                <label style="font-size:20px;">
+                    Tenant
+                </label>
+
+                &nbsp;&nbsp;&nbsp;
+
+                <input type="radio"
+                       name="role"
+                       value="owner">
+
+                <label style="font-size:20px;">
+                    Property Owner
+                </label>
+
+                <br><br>
+
+
+                <input type="submit"
+                       value="REGISTER"
+                       style="font-size:20px; padding:10px 30px;">
+
+            </form>
+
+        </section>
+
+        <hr>
+
+        <table width="100%">
+
+            <tr>
+
+                <td align="left">
+
+                    <img src="logo-project.png"
+                         width="180"
+                         height="100">
+
+                </td>
+
+                <td align="center">
+
+                    <a href="#">ABOUT</a>
+
+                    <a href="#">CONTACT</a>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+
+        <script>
+
+            let registerForm = document.getElementById("registerForm");
+
+            registerForm.addEventListener("submit", function(event)
+            {
+                event.preventDefault();
+
+                let name = document.getElementById("name").value.trim();
+
+                let email = document.getElementById("email").value.trim();
+
+                let phone = document.getElementById("phone").value.trim();
+
+                let address = document.getElementById("address").value.trim();
+
+                let password = document.getElementById("password").value.trim();
+
+                let role = document.querySelector('input[name="role"]:checked');
+
+
+                if(name == "" || email == "" || phone == "" ||
+                   address == "" || password == "")
+                {
+                    alert("Please fill all the fields!");
+                    return;
+                }
+
+
+                if(role == null)
+                {
+                    alert("Please select your role!");
+                    return;
+                }
+
+
+                let users = JSON.parse(localStorage.getItem("users")) || [];
+
+
+                let existingUser = users.find(function(user)
+                {
+                    return user.email == email;
+                });
+
+
+                if(existingUser)
+                {
+                    alert("Email is already registered!");
+                    return;
+                }
+
+
+                let user = {
+
+                    name: name,
+
+                    email: email,
+
+                    phone: phone,
+
+                    address: address,
+
+                    password: password,
+
+                    role: role.value
+
+                };
+
+
+                users.push(user);
+
+
+                localStorage.setItem("users", JSON.stringify(users));
+
+
+                alert("Registration Successful!");
+
+
+                window.location.href = "Login-Page.html";
+
+            });
+
+        </script>
+
+    </body>
+
+</html>

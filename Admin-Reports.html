@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PMS - Admin Reports</title>
+</head>
+
+<body style="background-image:url('project-background1.avif');">
+
+<table width="100%">
+<tr>
+
+<td align="left">
+<img src="logo-project.png" width="180" height="100">
+</td>
+
+<td align="right">
+
+<a href="PropertyManagementSystem.html">HOME</a>
+&nbsp;&nbsp;
+
+<a href="Admin-Page.html">ADMIN</a>
+&nbsp;&nbsp;
+
+<a href="Login-Page.html">LOGOUT</a>
+
+</td>
+
+</tr>
+</table>
+
+<hr>
+
+
+<h1 align="center">ADMIN REPORTS</h1>
+
+<p align="center" style="font-size:20px;">
+View HomeNest system reports.
+</p>
+
+<br>
+
+
+<table border="1" width="70%" align="center"
+       cellpadding="15">
+
+<tr>
+    <th>REPORT</th>
+    <th>COUNT</th>
+</tr>
+
+<tr>
+    <td>Total Registered Users</td>
+    <td id="totalUsers" align="center"></td>
+</tr>
+
+<tr>
+    <td>Total Tenants</td>
+    <td id="totalTenants" align="center"></td>
+</tr>
+
+<tr>
+    <td>Total Property Owners</td>
+    <td id="totalOwners" align="center"></td>
+</tr>
+
+<tr>
+    <td>Total Properties</td>
+    <td id="totalProperties" align="center"></td>
+</tr>
+
+<tr>
+    <td>Pending Properties</td>
+    <td id="pendingProperties" align="center"></td>
+</tr>
+
+<tr>
+    <td>Approved Properties</td>
+    <td id="approvedProperties" align="center"></td>
+</tr>
+
+<tr>
+    <td>Rejected Properties</td>
+    <td id="rejectedProperties" align="center"></td>
+</tr>
+
+</table>
+
+
+<br><br>
+
+
+<div align="center">
+
+<button onclick="goBack()"
+        style="font-size:18px; padding:10px 25px;">
+    BACK TO ADMIN
+</button>
+
+</div>
+
+
+<br>
+
+<hr>
+
+
+<table width="100%">
+<tr>
+
+<td align="left">
+<img src="logo-project.png" width="180" height="100">
+</td>
+
+<td align="center">
+
+<a href="#">ABOUT</a>
+&nbsp;&nbsp;
+
+<a href="#">CONTACT</a>
+
+</td>
+
+</tr>
+</table>
+
+
+<script>
+
+let users =
+    JSON.parse(localStorage.getItem("users")) || [];
+
+let properties =
+    JSON.parse(localStorage.getItem("properties")) || [];
+
+
+// Total Users
+
+document.getElementById("totalUsers").innerText =
+    users.length;
+
+
+// Total Tenants
+
+let tenants =
+    users.filter(function(user)
+    {
+        return user.role == "tenant";
+    });
+
+document.getElementById("totalTenants").innerText =
+    tenants.length;
+
+
+// Total Owners
+
+let owners =
+    users.filter(function(user)
+    {
+        return user.role == "owner";
+    });
+
+document.getElementById("totalOwners").innerText =
+    owners.length;
+
+
+// Total Properties
+
+document.getElementById("totalProperties").innerText =
+    properties.length;
+
+
+// Pending Properties
+
+let pending =
+    properties.filter(function(property)
+    {
+        return property.status == "Pending";
+    });
+
+document.getElementById("pendingProperties").innerText =
+    pending.length;
+
+
+// Approved Properties
+
+let approved =
+    properties.filter(function(property)
+    {
+        return property.status == "Approved";
+    });
+
+document.getElementById("approvedProperties").innerText =
+    approved.length;
+
+
+// Rejected Properties
+
+let rejected =
+    properties.filter(function(property)
+    {
+        return property.status == "Rejected";
+    });
+
+document.getElementById("rejectedProperties").innerText =
+    rejected.length;
+
+
+function goBack()
+{
+    window.location.href = "Admin-Page.html";
+}
+
+</script>
+
+</body>
+
+</html>

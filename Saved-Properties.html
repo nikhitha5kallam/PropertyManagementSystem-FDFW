@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>PMS - Saved Properties</title>
+</head>
+
+<body style="background-image:url('project-background1.avif');">
+
+<table width="100%">
+
+<tr>
+
+<td align="left">
+
+<img src="logo-project.png"
+     width="180"
+     height="100">
+
+</td>
+
+<td align="right">
+
+<a href="PropertyManagementSystem.html">HOME</a>
+&nbsp;&nbsp;
+
+<a href="Tenant-Page.html">TENANT</a>
+&nbsp;&nbsp;
+
+<a href="Properties-Page.html">PROPERTIES</a>
+&nbsp;&nbsp;
+
+<a href="My-Rentals.html">MY RENTALS</a>
+&nbsp;&nbsp;
+
+<a href="Login-Page.html">LOGOUT</a>
+
+</td>
+
+</tr>
+
+</table>
+
+<hr>
+
+
+<h1 align="center">❤️ MY SAVED PROPERTIES</h1>
+
+<p align="center" style="font-size:20px;">
+    Properties that you have saved.
+</p>
+
+<br>
+
+
+<div id="savedPropertiesContainer"></div>
+
+
+<br><br>
+
+
+<div align="center">
+
+<button onclick="goBack()"
+        style="font-size:18px; padding:10px 25px;">
+
+    BACK TO TENANT
+
+</button>
+
+</div>
+
+
+<br>
+
+<hr>
+
+
+<table width="100%">
+
+<tr>
+
+<td align="left">
+
+<img src="logo-project.png"
+     width="180"
+     height="100">
+
+</td>
+
+<td align="center">
+
+<a href="#">ABOUT</a>
+&nbsp;&nbsp;
+
+<a href="#">CONTACT</a>
+
+</td>
+
+</tr>
+
+</table>
+
+
+<script>
+
+
+let currentUser =
+    localStorage.getItem("currentUser");
+
+
+if(currentUser == null)
+{
+
+    alert("Please login first!");
+
+    window.location.href =
+        "Login-Page.html";
+
+}
+
+
+let savedProperties =
+    JSON.parse(
+        localStorage.getItem("savedProperties")
+    ) || [];
+
+
+let myProperties =
+    savedProperties.filter(function(property)
+    {
+
+        return property.email == currentUser;
+
+    });
+
+
+let container =
+    document.getElementById(
+        "savedPropertiesContainer"
+    );
+
+
+if(myProperties.length == 0)
+{
+
+    container.innerHTML =
+        "<h2 align='center'>" +
+        "You have no saved properties." +
+        "</h2>";
+
+}
+
+
+myProperties.forEach(function(property)
+{
+
+    let propertyBox =
+        document.createElement("div");
+
+
+    propertyBox.style.width = "70%";
+
+    propertyBox.style.margin =
+        "30px auto";
+
+    propertyBox.style.padding =
+        "20px";
+
+    propertyBox.style.backgroundColor =
+        "rgba(255,255,255,0.85)";
+
+    propertyBox.style.textAlign =
+        "center";
+
+
+    propertyBox.innerHTML =
+
+        "<img src='" +
+        property.photo +
+        "' width='250' height='200'>" +
+
+        "<h2>" +
+        property.propertyName +
+        "</h2>" +
+
+        "<p style='font-size:18px;'>" +
+
+        "<b>Location:</b> " +
+        property.location +
+
+        "</p>" +
+
+        "<p style='font-size:18px;'>" +
+
+        "<b>Rent:</b> " +
+        property.rent +
+
+        "</p>" +
+
+        "<br>" +
+
+        "<button onclick='removeProperty(\"" +
+        property.propertyName +
+        "\")'>" +
+
+        "REMOVE PROPERTY" +
+
+        "</button>";
+
+
+    container.appendChild(propertyBox);
+
+});
+
+
+
+function removeProperty(propertyName)
+{
+
+    let savedProperties =
+        JSON.parse(
+            localStorage.getItem("savedProperties")
+        ) || [];
+
+
+    savedProperties =
+        savedProperties.filter(function(property)
+        {
+
+            return !(
+                property.email == currentUser &&
+                property.propertyName == propertyName
+            );
+
+        });
+
+
+    localStorage.setItem(
+        "savedProperties",
+        JSON.stringify(savedProperties)
+    );
+
+
+    alert("Property removed from saved properties!");
+
+    location.reload();
+
+}
+
+
+
+function goBack()
+{
+
+    window.location.href =
+        "Tenant-Page.html";
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

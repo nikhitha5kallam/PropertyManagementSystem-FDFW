@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>PMS - User Management</title>
+
+</head>
+
+
+<body style="background-image:url('project-background1.avif');">
+
+
+    <!-- Header -->
+
+    <table width="100%">
+
+        <tr>
+
+            <td align="left">
+
+                <img src="logo-project.png"
+                     width="180"
+                     height="100">
+
+            </td>
+
+
+            <td align="right">
+
+                <a href="PropertyManagementSystem.html">
+                    HOME
+                </a>
+
+                &nbsp;&nbsp;
+
+                <a href="Admin-Page.html">
+                    ADMIN
+                </a>
+
+                &nbsp;&nbsp;
+
+                <a href="Login-Page.html">
+                    LOGOUT
+                </a>
+
+            </td>
+
+        </tr>
+
+    </table>
+
+
+    <hr>
+
+
+    <!-- User Management -->
+
+    <h1 align="center">
+        USER MANAGEMENT
+    </h1>
+
+
+    <p align="center" style="font-size:20px;">
+
+        View all registered Tenants and Property Owners.
+
+    </p>
+
+
+    <br>
+
+
+    <!-- Users Table -->
+
+    <table border="1"
+           width="90%"
+           align="center"
+           cellpadding="12">
+
+        <tr>
+
+            <th>
+                NAME
+            </th>
+
+            <th>
+                EMAIL
+            </th>
+
+            <th>
+                PHONE
+            </th>
+
+            <th>
+                ADDRESS
+            </th>
+
+            <th>
+                ROLE
+            </th>
+
+        </tr>
+
+
+        <tbody id="usersTable">
+
+        </tbody>
+
+    </table>
+
+
+    <br>
+    <br>
+
+
+    <!-- Back Button -->
+
+    <div align="center">
+
+        <button onclick="goBack()"
+                style="font-size:18px; padding:10px 25px;">
+
+            BACK TO ADMIN
+
+        </button>
+
+    </div>
+
+
+    <br>
+
+    <hr>
+
+
+    <!-- Footer -->
+
+    <table width="100%">
+
+        <tr>
+
+            <td align="left">
+
+                <img src="logo-project.png"
+                     width="180"
+                     height="100">
+
+            </td>
+
+
+            <td align="center">
+
+                <a href="#">
+                    ABOUT
+                </a>
+
+                &nbsp;&nbsp;
+
+                <a href="#">
+                    CONTACT
+                </a>
+
+            </td>
+
+        </tr>
+
+    </table>
+
+
+    <!-- JavaScript -->
+
+    <script>
+
+
+        /* Get registered users */
+
+        let users =
+            JSON.parse(localStorage.getItem("users")) || [];
+
+
+        let usersTable =
+            document.getElementById("usersTable");
+
+
+        /* Check if there are no users */
+
+        if(users.length == 0)
+        {
+            usersTable.innerHTML =
+                "<tr>" +
+                "<td colspan='5' align='center'>" +
+                "No registered users found." +
+                "</td>" +
+                "</tr>";
+        }
+
+
+        /* Display users */
+
+        users.forEach(function(user)
+        {
+
+            let row =
+                document.createElement("tr");
+
+
+            row.innerHTML =
+
+                "<td>" +
+                user.name +
+                "</td>" +
+
+                "<td>" +
+                user.email +
+                "</td>" +
+
+                "<td>" +
+                user.phone +
+                "</td>" +
+
+                "<td>" +
+                user.address +
+                "</td>" +
+
+                "<td>" +
+                user.role +
+                "</td>";
+
+
+            usersTable.appendChild(row);
+
+        });
+
+
+        /* Back to Admin */
+
+        function goBack()
+        {
+            window.location.href =
+                "Admin-Page.html";
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>

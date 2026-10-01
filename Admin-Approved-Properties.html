@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PMS - Approved Properties</title>
+</head>
+
+<body style="background-image:url('project-background1.avif');">
+
+<table width="100%">
+<tr>
+
+<td align="left">
+<img src="logo-project.png" width="180" height="100">
+</td>
+
+<td align="right">
+
+<a href="PropertyManagementSystem.html">HOME</a>
+&nbsp;&nbsp;
+
+<a href="Admin-Page.html">ADMIN</a>
+&nbsp;&nbsp;
+
+<a href="Login-Page.html">LOGOUT</a>
+
+</td>
+
+</tr>
+</table>
+
+<hr>
+
+
+<h1 align="center">APPROVED PROPERTIES</h1>
+
+<p align="center" style="font-size:20px;">
+All properties approved by the Admin.
+</p>
+
+<br>
+
+
+<div id="propertyContainer"></div>
+
+
+<br><br>
+
+<div align="center">
+
+<button onclick="goBack()"
+        style="font-size:18px; padding:10px 25px;">
+    BACK TO ADMIN
+</button>
+
+</div>
+
+
+<br>
+
+<hr>
+
+
+<table width="100%">
+<tr>
+
+<td align="left">
+<img src="logo-project.png" width="180" height="100">
+</td>
+
+<td align="center">
+
+<a href="#">ABOUT</a>
+&nbsp;&nbsp;
+
+<a href="#">CONTACT</a>
+
+</td>
+
+</tr>
+</table>
+
+
+<script>
+
+let properties =
+    JSON.parse(localStorage.getItem("properties")) || [];
+
+let container =
+    document.getElementById("propertyContainer");
+
+
+let approvedProperties =
+    properties.filter(function(property)
+    {
+        return property.status == "Approved";
+    });
+
+
+if(approvedProperties.length == 0)
+{
+    container.innerHTML =
+        "<h2 align='center'>No approved properties found.</h2>";
+}
+
+
+approvedProperties.forEach(function(property)
+{
+
+    let propertyBox =
+        document.createElement("div");
+
+
+    propertyBox.style.width = "70%";
+    propertyBox.style.margin = "30px auto";
+    propertyBox.style.padding = "20px";
+    propertyBox.style.backgroundColor =
+        "rgba(255,255,255,0.85)";
+    propertyBox.style.textAlign = "center";
+
+
+    propertyBox.innerHTML =
+
+        "<img src='" + property.photo +
+        "' width='250' height='180'>" +
+
+        "<h2>" +
+        property.propertyName +
+        "</h2>" +
+
+        "<p><b>Location:</b> " +
+        property.location +
+        "</p>" +
+
+        "<p><b>Property Type:</b> " +
+        property.propertyType +
+        "</p>" +
+
+        "<p><b>Area:</b> " +
+        property.area + " " +
+        property.areaUnit +
+        "</p>" +
+
+        "<p><b>Monthly Rent:</b> ₹" +
+        property.rent +
+        "</p>" +
+
+        "<p><b>Bedrooms:</b> " +
+        property.bedrooms +
+        "</p>" +
+
+        "<p><b>Bathrooms:</b> " +
+        property.bathrooms +
+        "</p>" +
+
+        "<p><b>Description:</b> " +
+        property.description +
+        "</p>" +
+
+        "<p><b>Status:</b> Approved</p>";
+
+
+    container.appendChild(propertyBox);
+
+});
+
+
+function goBack()
+{
+    window.location.href = "Admin-Page.html";
+}
+
+</script>
+
+</body>
+
+</html>
